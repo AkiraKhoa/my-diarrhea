@@ -1,9 +1,17 @@
 package model;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Product implements Serializable {
+public class Product implements Serializable, Storable<Product> {
     private static final long serialVersionUID = 1L;
 
     private String productCode;
@@ -13,6 +21,8 @@ public class Product implements Serializable {
     private double price;
     private int quantity;
     
+    public  Product() {
+    }
     public Product(String productCode, String productName, Date manufacturingDate, Date expirationDate, double price, int quantity) {
         this.productCode = productCode;
         this.productName = productName;
@@ -21,6 +31,7 @@ public class Product implements Serializable {
         this.price = price;
         this.quantity = quantity;
     }
+    
 
     // Getters and setters
     public String getProductCode() {
@@ -88,4 +99,29 @@ public class Product implements Serializable {
                "\nQuantity: " + quantity;
     }
     // Constructor, getters, setters, and validation methods here
+
+    @Override
+    public List<Product> loadAll(String filePath) throws IOException, ClassNotFoundException {
+        List<Product> productList = new ArrayList<>();
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
+            while (true) {
+                try {
+                    Product product = (Product) objectInputStream.readObject();
+                    productList.add(product);
+                } catch (EOFException e) {
+                    break; // End of file reached
+                }
+            }
+        }
+        return productList;
+    }
+
+    @Override
+    public void saveAll(List<Product> items, String filePath) throws IOException {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            for (Product product : items) {
+                objectOutputStream.writeObject(product);
+            }
+        }
+    }
 }
