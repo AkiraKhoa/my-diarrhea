@@ -1,0 +1,84 @@
+
+
+
+
+
+public static String validateStringInput(String prompt, String errorMessage) {
+    Scanner scanner = new Scanner(System.in);
+    String input;
+    do {
+        System.out.print(prompt);
+        input = scanner.nextLine();
+        if (input.isEmpty()) {
+            System.out.println(errorMessage);
+        } else {
+            return input;
+        }
+    } while (true);
+}
+
+public static double validateDoubleInput(String prompt, String errorMessage) {
+    Scanner scanner = new Scanner(System.in);
+    while (true) {
+        try {
+            System.out.print(prompt);
+            return Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println(errorMessage);
+        }
+    }
+}
+rewrite this one for me if input empty, return null so that user can hit enter to skip 
+
+Update Product T.T
+
+save date load date T.T
+
+NGON
+remove debug line in ImportExportController addItemToImportReceipt
+
+
+NGON
+(Create export receipts, somehow check if item first, if it's empty then failed to create receipts and generatedExportedCode should be -1 or don't use that time) 
+
+
+NGON
+(receipts toString for displaying Product's data
+should have Time create receipts, receipts code
+product code: quantity)  
+
+NGON
+(write receipts toString for displaying Product's data
+should have Time create receipts, receipts code
+and access to hashmap print this too product code: quantity 
+and important part, i'm using netbean 8.2, is there anyway to make the some line in output more outstanding than others one(not using anther language like html), if possible, you adjust receipts toString to have 1 parameter product code, and at that product code line, make it outstanding. but if it impossible to make, it fine)
+
+store data (completely blank)
+
+NGON
+(addProduct 
+check product duplicate right after input code
+input 0 or 1 to choose category) 
+
+NGON
+(addItemtoExportReceipts
+set quantity of import and export) 
+
+NGON
+Low-stock Prodcut (quantity problem) 
+
+NGON
+delete product (don't check exist in receipts or not) 
+
+NGON
+Show All product
+Product toString show all information 
+
+NGON
+Report product 
+Product toStringReport code, name, production date, expiration date, quantity 
+
+NGON
+Report
+Product for Sell 
+
