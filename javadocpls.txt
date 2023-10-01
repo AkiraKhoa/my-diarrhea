@@ -1,0 +1,40 @@
+PRODUCT CLASS
+isExpired
+
+RECEIPTS CLASS
+addProductToReceipt
+
+PRODUCTCONTROLLER CLASS
+addProduct DONE
+updateProduct DONE
+deleteProductCheck -> getReceiptsByProductCode WAREHOUSECONTROLLER
+getExpiredProducts -> isExpired PRODUCT
+
+WAREHOUSECONTROLLER CLASS
+getReceiptsByProductCode
+displayProductData
+getProductsForSale
+getLowStockProducts
+
+IMPORTEXPORTCONTROLLER CLASS
+addItemToImportReceipt
+addItemToExportReceipt
+addImportReceiptToMap
+addExportReceiptToMap
+removeExportReceiptFromMap
+
+PRODUCTVIEW CLASS
+addProduct -> addProduct PRODUCTCONTROLLER DONE
+updateProduct DONE
+deleteProduct
+
+WAREHOUSEVIEW CLASS
+createAndManageImportReceipt
+createAndManageExportReceipt
+
+REPORTVIEW CLASS
+displayExpiredProducts
+displayProductsForSale
+displayLowStockProducts
+displayProductData
+
