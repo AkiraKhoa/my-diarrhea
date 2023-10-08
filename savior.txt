@@ -1,0 +1,70 @@
+validateIntRange validateCategoryInputUpdate
+
+validateNotFutureDate validateManufacturingDateSkip
+validateDateAfter validateExpiryForLongShelfSkip validateExpiryForLongShelf
+
+
+ok hear me out, this is really complex
+if (newCategory == null) {
+        newCategory = currentProduct.getCategoryBinary(); 
+    }
+    LocalDate newManufactureDate = null;
+    LocalDate newExpiryDate = null;
+    LocalDate tempManuDate=currentProduct.getManufacturingDate();
+    LocalDate tempExpiDate=currentProduct.getExpirationDate();
+    if (newCategory == 0) {
+        newManufactureDate = Tool.validateManufacturingDateSkip("Enter manufacturing date (d/M/yyyy) or Enter to skip: ");
+        if (newManufactureDate == null) newManufactureDate = tempManuDate;
+        newExpiryDate = newManufactureDate.plusDays(1);
+    }
+    if (newCategory == 1){
+        newManufactureDate = Tool.validateManufacturingDateSkip("Enter manufacturing date (d/M/yyyy) or Enter to skip: ");
+        if (newManufactureDate == null) newManufactureDate = tempManuDate;
+        if (tempExpiDate.isAfter(newManufactureDate.plusDays(7))) {
+            newExpiryDate = Tool.validateExpiryForLongShelfSkip("Enter expiry date (d/M/yyyy) or Enter skip this one: ", newManufactureDate);
+            if (newExpiryDate == null) newExpiryDate = tempExpiDate;
+        }
+        else newExpiryDate = Tool.validateExpiryForLongShelf("Enter expiry date (d/M/yyyy) can't skip this one: ", newManufactureDate);
+    }
+    String newCategory1 = null;
+    if (newCategory == 0) newCategory1="Daily";
+    if (newCategory == 1) newCategory1="L.shelf";
+    if (!productController.updateProduct(code, newName, newCategory1, newManufactureDate, newExpiryDate, newPrice)) {
+        System.out.println("Product does not exist!");
+        return;
+    }
+    System.out.println("Product updated successfully!");
+    currentProduct.toString();
+    }
+
+should we rewrite this in 
+
+
+
+
+
+
+
+product hashmap in warehouse, report view
+
+addproduct in product controller
+
+
+
+
+public void addProduct() {
+    ProductController productController = new ProductController();
+    while(true){
+        String code = Tool.validateCode("Enter product code: ", "Invalid code. Only alphanumeric characters are allowed.");
+    if (productController.checkProductExists(code)) {
+        System.out.println("Product code already exists!, Failed to add product");
+        return;
+    }
+
+    String name = Tool.validateAlphanumericString("Enter product name: ", "Name cannot be empty and don't have special characters");
+    double price = Tool.validateDouble("Enter product price: ", "What did you just type?", "You can't give customers money for buying something! :((( T.T T.T ");    
+
+    int categoryChoice = Tool.validateIntRange("Choose product category (0 for Daily, 1 for Longshelf): ", 0, 1, "Invalid choice.");
+    String category = categoryChoice == 0 ? "Daily" : "L.shelf";
+
+chuyển cục này thành 1 method
